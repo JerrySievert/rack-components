@@ -7,7 +7,7 @@ extern Plugin *plugin;
 
 struct RCKnobRed : RoundKnob {
   RCKnobRed() {
-    setSVG(SVG::load(assetPlugin(plugin, "deps/rack-components/res/KnobRed.svg")));
+    setSVG(SVG::load(assetPlugin(plugin, "res/KnobRed.svg")));
   }
 };
 
@@ -19,7 +19,7 @@ struct RCKnobRedSnap : RCKnobRed {
 
 struct RCKnobRedLarge : RoundKnob {
   RCKnobRedLarge() {
-    setSVG(SVG::load(assetPlugin(plugin, "deps/rack-components/res/KnobRedLarge.svg")));
+    setSVG(SVG::load(assetPlugin(plugin, "res/KnobRedLarge.svg")));
   }
 };
 

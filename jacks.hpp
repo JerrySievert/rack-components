@@ -7,7 +7,7 @@ extern Plugin *plugin;
 
 struct RCJackSmallRed : SVGPort {
   RCJackSmallRed() {
-    background->svg = SVG::load(assetPlugin(plugin, "deps/rack-components/res/JackSmallRed.svg"));
+    background->svg = SVG::load(assetPlugin(plugin, "res/JackSmallRed.svg"));
     background->wrap();
     box.size = background->box.size;
   }
