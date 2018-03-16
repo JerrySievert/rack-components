@@ -59,7 +59,7 @@ struct RCKnobWhiteSmall : RoundKnob {
   }
 };
 
-struct RCKnobWhiteSmallSnap : RCKnobWhiteSmallSnap {
+struct RCKnobWhiteSmallSnap : RCKnobWhiteSmall {
   RCKnobWhiteSmallSnap() {
     snap = true;
   }
