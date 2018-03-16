@@ -30,7 +30,7 @@ struct RCKnobRedLargeSnap : RCKnobRedLarge {
 };
 
 struct RCKnobWhiteLarge : RoundKnob {
-  RCKnobWhite() {
+  RCKnobWhiteLarge() {
     setSVG(SVG::load(assetPlugin(plugin, "res/KnobWhiteLarge.svg")));
   }
 };
