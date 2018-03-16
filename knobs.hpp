@@ -28,3 +28,39 @@ struct RCKnobRedLargeSnap : RCKnobRedLarge {
     snap = true;
   }
 };
+
+struct RCKnobWhiteLarge : RoundKnob {
+  RCKnobWhite() {
+    setSVG(SVG::load(assetPlugin(plugin, "res/KnobWhiteLarge.svg")));
+  }
+};
+
+struct RCKnobWhiteLargeSnap : RCKnobWhiteLarge {
+  RCKnobWhiteLargeSnap() {
+    snap = true;
+  }
+};
+
+struct RCKnobWhite : RoundKnob {
+  RCKnobWhite() {
+    setSVG(SVG::load(assetPlugin(plugin, "res/KnobWhite.svg")));
+  }
+};
+
+struct RCKnobWhiteSnap : RCKnobWhite {
+  RCKnobWhiteSnap() {
+    snap = true;
+  }
+};
+
+struct RCKnobWhiteSmall : RoundKnob {
+  RCKnobWhiteSmall() {
+    setSVG(SVG::load(assetPlugin(plugin, "res/KnobWhiteSmall.svg")));
+  }
+};
+
+struct RCKnobWhiteSmallSnap : RCKnobWhiteSmallSnap {
+  RCKnobWhiteSmallSnap() {
+    snap = true;
+  }
+};
