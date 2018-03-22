@@ -3,6 +3,8 @@
 #include "asset.hpp"
 #include "rack.hpp"
 
+using namespace rack;
+
 extern Plugin *plugin;
 
 struct RCKnobRed : RoundKnob {
