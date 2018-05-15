@@ -22,3 +22,11 @@ struct RCJackSmallGrey : SVGPort {
     box.size = background->box.size;
   }
 };
+
+struct RCJackSmallDark : SVGPort {
+  RCJackSmallDark() {
+    background->svg = SVG::load(assetPlugin(plugin, "res/JackSmallDark.svg"));
+    background->wrap();
+    box.size = background->box.size;
+  }
+};
