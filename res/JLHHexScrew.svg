@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="13" height="13" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <path d="M13,6.5c0,3.587 -2.913,6.5 -6.5,6.5c-3.587,0 -6.5,-2.913 -6.5,-6.5c0,-3.587 2.913,-6.5 6.5,-6.5c3.587,0 6.5,2.913 6.5,6.5Z" style="fill:url(#_Linear1);"/>
+    <ellipse cx="6.5" cy="6.5" rx="5.5" ry="5.5" style="fill:rgb(107,107,107);"/>
+    <path d="M11.281,6.5l-2.391,4.075l-4.78,0l-2.391,-4.075l2.391,-4.075l4.78,0l2.391,4.075Z" style="fill:url(#_Linear2);"/>
+    <path d="M10.153,6.502l-1.828,3.115l-3.654,0l-1.827,-3.115l1.827,-3.115l3.654,0l1.828,3.115Z" style="fill:rgb(49,49,49);"/>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(7.9602e-16,13,-13,7.9602e-16,6.5,1.22125e-15)"><stop offset="0" style="stop-color:rgb(179,179,179);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(65,65,65);stop-opacity:1"/></linearGradient>
+        <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(4.99078e-16,8.15056,-9.56173,5.85487e-16,6.5,2.42472)"><stop offset="0" style="stop-color:rgb(38,38,38);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(125,125,125);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>

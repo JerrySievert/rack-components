@@ -37,3 +37,11 @@ Snap version of the 12mm red knob.
 #### RCJackSmallRed
 
 A smaller red jack that will fit 2 across in a 3HP module.
+
+#### RCJackSmallDark
+
+A smaller dark ringed jack that will fit 2 across in a 3HP module.
+
+#### JLHHexScrew
+
+A hex screw, courtesy of Jon Heal.
