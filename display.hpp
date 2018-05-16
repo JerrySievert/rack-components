@@ -75,3 +75,30 @@ struct ValueDisplay : TransparentWidget {
     nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
   }
 };
+
+struct FrequencyDisplay : TransparentWidget {
+  float *value;
+  std::shared_ptr<Font> font;
+
+	FrequencyDisplay ( ) {
+    value = NULL;
+    font = Font::load(assetPlugin(plugin, "res/digit.ttf"));
+  }
+
+  void draw (NVGcontext *vg) override {
+    char text[16];
+    nvgFontSize(vg, 12);
+		nvgFontFaceId(vg, font->handle);
+		nvgTextLetterSpacing(vg, 1);
+
+		nvgFillColor(vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
+
+    if (value) {
+      sprintf(text, "%10.0fHz", *value);
+    } else {
+      sprintf(text, "ERROR");
+    }
+
+    nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
+  }
+};
