@@ -87,16 +87,73 @@ struct FrequencyDisplay : TransparentWidget {
 
   void draw (NVGcontext *vg) override {
     char text[16];
-    nvgFontSize(vg, 12);
+    nvgFontSize(vg, 7);
 		nvgFontFaceId(vg, font->handle);
-		nvgTextLetterSpacing(vg, 1);
+		nvgTextLetterSpacing(vg, 0.5);
 
 		nvgFillColor(vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
 
     if (value) {
-      sprintf(text, "%10.0fHz", *value);
+      sprintf(text, "%5.0fHz", *value);
     } else {
       sprintf(text, "ERROR");
+    }
+
+    nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
+  }
+};
+
+/*
+bq_type_lowpass = 0,
+bq_type_highpass,
+bq_type_bandpass,
+bq_type_notch,
+bq_type_peak,
+bq_type_lowshelf,
+bq_type_highshelf
+*/
+
+struct EqTypeDisplay : TransparentWidget {
+  uint8_t *value;
+  std::shared_ptr<Font> font;
+
+	EqTypeDisplay ( ) {
+    value = NULL;
+    font = Font::load(assetPlugin(plugin, "res/digit.ttf"));
+  }
+
+  void draw (NVGcontext *vg) override {
+    char *text;
+    nvgFontSize(vg, 6);
+		nvgFontFaceId(vg, font->handle);
+		nvgTextLetterSpacing(vg, 0.5);
+
+		nvgFillColor(vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
+
+    switch (*value) {
+    case 0:
+      text = "  LOW\n PASS";
+      break;
+    case 1:
+      text = " HIGH\n PASS";
+      break;
+    case 2:
+      text = " BAND\n PASS";
+      break;
+    case 3:
+      text = "NOTCH";
+      break;
+    case 4:
+      text = " PEAK";
+      break;
+    case 5:
+      text = "  LOW\nSHELF";
+      break;
+    case 6:
+      text = " HIGH\nSHELF";
+      break;
+    default:
+      text = "ERROR";
     }
 
     nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
