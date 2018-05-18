@@ -132,28 +132,33 @@ struct EqTypeDisplay : TransparentWidget {
 
     switch (*value) {
     case 0:
-      text = "  LOW\n PASS";
+      nvgText(vg, box.pos.x + 12, box.pos.y + 2, "LOW", NULL);
+      nvgText(vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
       break;
     case 1:
-      text = " HIGH\n PASS";
+      nvgText(vg, box.pos.x + 10, box.pos.y + 2, "HIGH", NULL);
+      nvgText(vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
       break;
     case 2:
-      text = " BAND\n PASS";
+      nvgText(vg, box.pos.x + 10, box.pos.y + 2, "BAND", NULL);
+      nvgText(vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
       break;
     case 3:
-      text = "NOTCH";
+      nvgText(vg, box.pos.x + 7, box.pos.y + 6, "NOTCH", NULL);;
       break;
     case 4:
-      text = " PEAK";
+      nvgText(vg, box.pos.x + 8, box.pos.y + 6, "PEAK", NULL);;
       break;
     case 5:
-      text = "  LOW\nSHELF";
+      nvgText(vg, box.pos.x + 12, box.pos.y + 2, "LOW", NULL);
+      nvgText(vg, box.pos.x + 7, box.pos.y + 10, "SHELF", NULL);
       break;
     case 6:
-      text = " HIGH\nSHELF";
+      nvgText(vg, box.pos.x + 10, box.pos.y + 2, "HIGH", NULL);
+      nvgText(vg, box.pos.x + 7, box.pos.y + 10, "SHELF", NULL);
       break;
     default:
-      text = "ERROR";
+      nvgText(vg, box.pos.x + 1, box.pos.y + 1, "ERROR", NULL);;
     }
 
     nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
