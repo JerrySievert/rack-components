@@ -452,7 +452,6 @@ struct EqTypeDisplay : TransparentWidget {
   }
 
   void draw (NVGcontext *vg) override {
-    char *text;
     nvgFontSize(vg, 6);
 		nvgFontFaceId(vg, font->handle);
 		nvgTextLetterSpacing(vg, 0.5);
@@ -489,7 +488,5 @@ struct EqTypeDisplay : TransparentWidget {
     default:
       nvgText(vg, box.pos.x + 1, box.pos.y + 1, "ERROR", NULL);;
     }
-
-    nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
   }
 };
