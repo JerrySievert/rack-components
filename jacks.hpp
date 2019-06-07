@@ -5,37 +5,29 @@
 
 using namespace rack;
 
-extern Plugin *plugin;
+extern Plugin *pluginInstance;
 
-struct RCJackSmallRed : SVGPort {
+struct RCJackSmallRed : app::SvgPort {
   RCJackSmallRed() {
-    background->svg = SVG::load(assetPlugin(plugin, "res/JackSmallRed.svg"));
-    background->wrap();
-    box.size = background->box.size;
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/JackSmallRed.svg")));
   }
 };
 
-struct RCJackSmallGrey : SVGPort {
+struct RCJackSmallGrey : app::SvgPort {
   RCJackSmallGrey() {
-    background->svg = SVG::load(assetPlugin(plugin, "res/JackSmallGrey.svg"));
-    background->wrap();
-    box.size = background->box.size;
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/JackSmallGrey.svg")));
   }
 };
 
-struct RCJackSmallDark : SVGPort {
+struct RCJackSmallDark : app::SvgPort {
   RCJackSmallDark() {
-    background->svg = SVG::load(assetPlugin(plugin, "res/JackSmallDark.svg"));
-    background->wrap();
-    box.size = background->box.size;
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/JackSmallDark.svg")));
   }
 };
 
 
-struct RCJackSmallLight : SVGPort {
+struct RCJackSmallLight : app::SvgPort {
   RCJackSmallLight() {
-    background->svg = SVG::load(assetPlugin(plugin, "res/JackSmallLight.svg"));
-    background->wrap();
-    box.size = background->box.size;
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/JackSmallLight.svg")));
   }
 };

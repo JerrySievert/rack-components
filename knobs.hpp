@@ -5,11 +5,11 @@
 
 using namespace rack;
 
-extern Plugin *plugin;
+extern Plugin *pluginInstance;
 
 struct RCKnobRed : RoundKnob {
   RCKnobRed() {
-    setSVG(SVG::load(assetPlugin(plugin, "res/KnobRed.svg")));
+    setSVG(APP->window->loadSvg(assetPlugin(plugin, "res/KnobRed.svg")));
   }
 };
 
@@ -21,7 +21,7 @@ struct RCKnobRedSnap : RCKnobRed {
 
 struct RCKnobRedLarge : RoundKnob {
   RCKnobRedLarge() {
-    setSVG(SVG::load(assetPlugin(plugin, "res/KnobRedLarge.svg")));
+    setSVG(APP->window->loadSvg(assetPlugin(plugin, "res/KnobRedLarge.svg")));
   }
 };
 
@@ -33,7 +33,7 @@ struct RCKnobRedLargeSnap : RCKnobRedLarge {
 
 struct RCKnobRedSmall : RoundKnob {
   RCKnobRedSmall() {
-    setSVG(SVG::load(assetPlugin(plugin, "res/KnobRedSmall.svg")));
+    setSVG(APP->window->loadSvg(assetPlugin(plugin, "res/KnobRedSmall.svg")));
   }
 };
 
@@ -45,7 +45,7 @@ struct RCKnobRedSmallSnap : RCKnobRedSmall {
 
 struct RCKnobWhiteLarge : RoundKnob {
   RCKnobWhiteLarge() {
-    setSVG(SVG::load(assetPlugin(plugin, "res/KnobWhiteLarge.svg")));
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/KnobWhiteLarge.svg")));
   }
 };
 
@@ -57,7 +57,7 @@ struct RCKnobWhiteLargeSnap : RCKnobWhiteLarge {
 
 struct RCKnobWhite : RoundKnob {
   RCKnobWhite() {
-    setSVG(SVG::load(assetPlugin(plugin, "res/KnobWhite.svg")));
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/KnobWhite.svg")));
   }
 };
 
@@ -69,7 +69,7 @@ struct RCKnobWhiteSnap : RCKnobWhite {
 
 struct RCKnobWhiteSmall : RoundKnob {
   RCKnobWhiteSmall() {
-    setSVG(SVG::load(assetPlugin(plugin, "res/KnobWhiteSmall.svg")));
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/KnobWhiteSmall.svg")));
   }
 };
 

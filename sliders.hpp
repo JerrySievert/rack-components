@@ -7,18 +7,18 @@
 
 using namespace rack;
 
-extern Plugin *plugin;
+extern Plugin *pluginInstance;
 
 struct RCSlider : SVGFader {
 	RCSlider() {
 		Vec margin = Vec(4, 4);
 		maxHandlePos = Vec(1.3, -7).plus(margin);
 		minHandlePos = Vec(1.3, 79).plus(margin);
-		background->svg = SVG::load(assetPlugin(plugin,"res/Slider.svg"));
+		setBackgroundSvg(APP->window->loadSvg(asset::plugin(pluginInstance,"res/Slider.svg");
 		background->wrap();
 		background->box.pos = margin;
 		box.size = background->box.size.plus(margin.mult(2));
-		handle->svg = SVG::load(assetPlugin(plugin,"res/SliderHandle.svg"));
+		setHandleSvg(APP->window->loadSvg(asset::plugin(pluginInstance,"res/SliderHandle.svg"));
 		handle->wrap();
 	}
 };

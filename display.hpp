@@ -7,7 +7,7 @@
 
 using namespace rack;
 
-extern Plugin *plugin;
+extern Plugin *pluginInstance;
 
 struct WaveSelect : TransparentWidget {
   uint8_t *value;
@@ -15,36 +15,36 @@ struct WaveSelect : TransparentWidget {
 
 	WaveSelect ( ) {
     value = NULL;
-    font = Font::load(assetPlugin(plugin, "res/digit.ttf"));
+    font = APP->window->loadFont(asset::plugin(pluginInstance, "res/digit.ttf"));
   }
 
-  void draw (NVGcontext *vg) override {
-    nvgFontSize(vg, 8);
-		nvgFontFaceId(vg, font->handle);
-		nvgTextLetterSpacing(vg, 1);
+  void draw (const DrawArgs &args) override {
+    nvgFontSize(args.vg, 8);
+		nvgFontFaceId(args.vg, font->handle);
+		nvgTextLetterSpacing(args.vg, 1);
 
-		nvgFillColor(vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
+		nvgFillColor(args.vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
 
     if (value) {
       switch (*value) {
       case 0:
-        nvgText(vg, box.pos.x + 1, box.pos.y + 1, "SIN", NULL);
+        nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "SIN", NULL);
         break;
       case 1:
-        nvgText(vg, box.pos.x + 1, box.pos.y + 1, "TRI", NULL);
+        nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "TRI", NULL);
         break;
       case 2:
-        nvgText(vg, box.pos.x + 1, box.pos.y + 1, "SAW", NULL);
+        nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "SAW", NULL);
         break;
       case 3:
-        nvgText(vg, box.pos.x + 1, box.pos.y + 1, "SQR", NULL);
+        nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "SQR", NULL);
         break;
       default:
-        nvgText(vg, box.pos.x + 1, box.pos.y + 1, "ERR", NULL);
+        nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "ERR", NULL);
         break;
       }
     } else {
-      nvgText(vg, box.pos.x + 1, box.pos.y + 1, "NUL", NULL);
+      nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "NUL", NULL);
     }
   }
 };
@@ -55,16 +55,16 @@ struct ValueDisplay : TransparentWidget {
 
 	ValueDisplay ( ) {
     value = NULL;
-    font = Font::load(assetPlugin(plugin, "res/digit.ttf"));
+    font = APP->window->loadFont(asset::plugin(pluginInstance, "res/digit.ttf"));
   }
 
-  void draw (NVGcontext *vg) override {
+  void draw (const DrawArgs &args) override {
     char text[12];
-    nvgFontSize(vg, 8);
-		nvgFontFaceId(vg, font->handle);
-		nvgTextLetterSpacing(vg, 1);
+    nvgFontSize(args.vg, 8);
+		nvgFontFaceId(args.vg, font->handle);
+		nvgTextLetterSpacing(args.vg, 1);
 
-		nvgFillColor(vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
+		nvgFillColor(args.vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
 
     if (value) {
       sprintf(text, "%6.2f", *value);
@@ -72,7 +72,7 @@ struct ValueDisplay : TransparentWidget {
       sprintf(text, "ERROR");
     }
 
-    nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
+    nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
   }
 };
 
@@ -83,103 +83,103 @@ struct LEDDisplay : TransparentWidget {
     value = NULL;
   }
 
-  void draw (NVGcontext *vg) override {
+  void draw (const DrawArgs &args) override {
     NVGcolor red = nvgRGBA(192, 0, 0, 255);
     NVGcolor yellow = nvgRGBA(255, 192, 0, 255);
     NVGcolor green = nvgRGBA(0, 192, 0, 255);
     NVGcolor grey = nvgRGBA(64, 64, 64, 255);
     float val = *value ? *value : 0.0f;
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 0, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 0, 8, 8);
     if (fabs(val) >= 4.5) {
-      nvgFillColor(vg, red);
+      nvgFillColor(args.vg, red);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 11, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 11, 8, 8);
     if (fabs(val) >= 4.0) {
-      nvgFillColor(vg, yellow);
+      nvgFillColor(args.vg, yellow);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 22, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 22, 8, 8);
     if (fabs(val) >= 3.5) {
-      nvgFillColor(vg, yellow);
+      nvgFillColor(args.vg, yellow);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 33, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 33, 8, 8);
     if (fabs(val) >= 3.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 44, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 44, 8, 8);
     if (fabs(val) >= 2.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 55, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 55, 8, 8);
     if (fabs(val) >= 2.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 66, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 66, 8, 8);
     if (fabs(val) >= 1.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 77, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 77, 8, 8);
     if (fabs(val) >= 1.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 88, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 88, 8, 8);
     if (fabs(val) >= 0.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 99, 8, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 99, 8, 8);
     if (fabs(val) > 0.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
   }
 };
 
@@ -190,103 +190,103 @@ struct LEDSmallDisplay : TransparentWidget {
     value = NULL;
   }
 
-  void draw (NVGcontext *vg) override {
+  void draw (const DrawArgs &args) override {
     NVGcolor red = nvgRGBA(192, 0, 0, 255);
     NVGcolor yellow = nvgRGBA(255, 192, 0, 255);
     NVGcolor green = nvgRGBA(0, 192, 0, 255);
     NVGcolor grey = nvgRGBA(64, 64, 64, 255);
     float val = *value ? *value : 0.0f;
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 0, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 0, 8, 6);
     if (fabs(val) >= 4.5) {
-      nvgFillColor(vg, red);
+      nvgFillColor(args.vg, red);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 8, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 8, 8, 6);
     if (fabs(val) >= 4.0) {
-      nvgFillColor(vg, yellow);
+      nvgFillColor(args.vg, yellow);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 16, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 16, 8, 6);
     if (fabs(val) >= 3.5) {
-      nvgFillColor(vg, yellow);
+      nvgFillColor(args.vg, yellow);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 24, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 24, 8, 6);
     if (fabs(val) >= 3.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 32, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 32, 8, 6);
     if (fabs(val) >= 2.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 40, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 40, 8, 6);
     if (fabs(val) >= 2.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 48, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 48, 8, 6);
     if (fabs(val) >= 1.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 56, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 56, 8, 6);
     if (fabs(val) >= 1.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 64, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 64, 8, 6);
     if (fabs(val) >= 0.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 72, 8, 6);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 72, 8, 6);
     if (fabs(val) > 0.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
   }
 };
 
@@ -297,103 +297,103 @@ struct LEDWideDisplay : TransparentWidget {
     value = NULL;
   }
 
-  void draw (NVGcontext *vg) override {
+  void draw (const DrawArgs &args) override {
     NVGcolor red = nvgRGBA(192, 0, 0, 255);
     NVGcolor yellow = nvgRGBA(255, 192, 0, 255);
     NVGcolor green = nvgRGBA(0, 192, 0, 255);
     NVGcolor grey = nvgRGBA(64, 64, 64, 255);
     float val = *value ? *value : 0.0f;
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 0, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 0, 16, 8);
     if (fabs(val) >= 4.5) {
-      nvgFillColor(vg, red);
+      nvgFillColor(args.vg, red);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 11, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 11, 16, 8);
     if (fabs(val) >= 4.0) {
-      nvgFillColor(vg, yellow);
+      nvgFillColor(args.vg, yellow);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 22, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 22, 16, 8);
     if (fabs(val) >= 3.5) {
-      nvgFillColor(vg, yellow);
+      nvgFillColor(args.vg, yellow);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 33, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 33, 16, 8);
     if (fabs(val) >= 3.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 44, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 44, 16, 8);
     if (fabs(val) >= 2.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 55, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 55, 16, 8);
     if (fabs(val) >= 2.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 66, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 66, 16, 8);
     if (fabs(val) >= 1.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 77, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 77, 16, 8);
     if (fabs(val) >= 1.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 88, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 88, 16, 8);
     if (fabs(val) >= 0.5) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
 
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 99, 16, 8);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 99, 16, 8);
     if (fabs(val) > 0.0) {
-      nvgFillColor(vg, green);
+      nvgFillColor(args.vg, green);
     } else {
-      nvgFillColor(vg, grey);
+      nvgFillColor(args.vg, grey);
     }
-    nvgFill(vg);
+    nvgFill(args.vg);
   }
 };
 
@@ -411,16 +411,16 @@ struct FrequencyDisplay : TransparentWidget {
 
 	FrequencyDisplay ( ) {
     value = NULL;
-    font = Font::load(assetPlugin(plugin, "res/digit.ttf"));
+    font = APP->window->loadFont(asset::plugin(pluginInstance, "res/digit.ttf"));
   }
 
-  void draw (NVGcontext *vg) override {
+  void draw (const DrawArgs &args) override {
     char text[16];
-    nvgFontSize(vg, 7);
-		nvgFontFaceId(vg, font->handle);
-		nvgTextLetterSpacing(vg, 0.5);
+    nvgFontSize(args.vg, 7);
+		nvgFontFaceId(args.vg, font->handle);
+		nvgTextLetterSpacing(args.vg, 0.5);
 
-		nvgFillColor(vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
+		nvgFillColor(args.vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
 
     if (value) {
       sprintf(text, "%5.0fHz", *value);
@@ -428,7 +428,7 @@ struct FrequencyDisplay : TransparentWidget {
       sprintf(text, "ERROR");
     }
 
-    nvgText(vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
+    nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, text, NULL);
   }
 };
 
@@ -443,50 +443,55 @@ bq_type_highshelf
 */
 
 struct EqTypeDisplay : TransparentWidget {
-  uint8_t *value;
+  uint8_t *value = nullptr;
   std::shared_ptr<Font> font;
 
 	EqTypeDisplay ( ) {
-    value = NULL;
-    font = Font::load(assetPlugin(plugin, "res/digit.ttf"));
+    value = nullptr;
+    font = APP->window->loadFont(asset::plugin(pluginInstance, "res/digit.ttf"));
   }
 
-  void draw (NVGcontext *vg) override {
-    nvgFontSize(vg, 6);
-		nvgFontFaceId(vg, font->handle);
-		nvgTextLetterSpacing(vg, 0.5);
+  void draw (const DrawArgs &args) override {
+    nvgFontSize(args.vg, 6);
+		nvgFontFaceId(args.vg, font->handle);
+		nvgTextLetterSpacing(args.vg, 0.5);
 
-		nvgFillColor(vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
+		nvgFillColor(args.vg, nvgRGBA(0x00, 0xff, 0x00, 0xff));
 
-    switch (*value) {
-    case 0:
-      nvgText(vg, box.pos.x + 12, box.pos.y + 2, "LOW", NULL);
-      nvgText(vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
-      break;
-    case 1:
-      nvgText(vg, box.pos.x + 10, box.pos.y + 2, "HIGH", NULL);
-      nvgText(vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
-      break;
-    case 2:
-      nvgText(vg, box.pos.x + 10, box.pos.y + 2, "BAND", NULL);
-      nvgText(vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
-      break;
-    case 3:
-      nvgText(vg, box.pos.x + 7, box.pos.y + 6, "NOTCH", NULL);;
-      break;
-    case 4:
-      nvgText(vg, box.pos.x + 8, box.pos.y + 6, "PEAK", NULL);;
-      break;
-    case 5:
-      nvgText(vg, box.pos.x + 12, box.pos.y + 2, "LOW", NULL);
-      nvgText(vg, box.pos.x + 7, box.pos.y + 10, "SHELF", NULL);
-      break;
-    case 6:
-      nvgText(vg, box.pos.x + 10, box.pos.y + 2, "HIGH", NULL);
-      nvgText(vg, box.pos.x + 7, box.pos.y + 10, "SHELF", NULL);
-      break;
-    default:
-      nvgText(vg, box.pos.x + 1, box.pos.y + 1, "ERROR", NULL);;
+    if (value) {
+      switch (*value) {
+      case 0:
+        nvgText(args.vg, box.pos.x + 12, box.pos.y + 2, "LOW", NULL);
+        nvgText(args.vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
+        break;
+      case 1:
+        nvgText(args.vg, box.pos.x + 10, box.pos.y + 2, "HIGH", NULL);
+        nvgText(args.vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
+        break;
+      case 2:
+        nvgText(args.vg, box.pos.x + 10, box.pos.y + 2, "BAND", NULL);
+        nvgText(args.vg, box.pos.x + 10, box.pos.y + 10, "PASS", NULL);
+        break;
+      case 3:
+        nvgText(args.vg, box.pos.x + 7, box.pos.y + 6, "NOTCH", NULL);;
+        break;
+      case 4:
+        nvgText(args.vg, box.pos.x + 8, box.pos.y + 6, "PEAK", NULL);;
+        break;
+      case 5:
+        nvgText(args.vg, box.pos.x + 12, box.pos.y + 2, "LOW", NULL);
+        nvgText(args.vg, box.pos.x + 7, box.pos.y + 10, "SHELF", NULL);
+        break;
+      case 6:
+        nvgText(args.vg, box.pos.x + 10, box.pos.y + 2, "HIGH", NULL);
+        nvgText(args.vg, box.pos.x + 7, box.pos.y + 10, "SHELF", NULL);
+        break;
+      default:
+        nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "ERROR", NULL);
+      }
+    } else {
+      nvgText(args.vg, box.pos.x + 1, box.pos.y + 1, "ERROR", NULL);;
     }
+
   }
 };

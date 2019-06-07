@@ -5,12 +5,12 @@
 
 using namespace rack;
 
-extern Plugin *plugin;
+extern Plugin *pluginInstance;
 
 
 struct JLHHexScrew : SVGScrew {
   JLHHexScrew() {
-    sw->setSVG(SVG::load(assetPlugin(plugin, "res/JLHHexScrew.svg")));
+    sw->setSVG(APP->window->loadSvg(asset::plugin(pluginInstance, "res/JLHHexScrew.svg")));
     box.size = sw->box.size;
   }
 };
