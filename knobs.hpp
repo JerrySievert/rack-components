@@ -9,7 +9,7 @@ extern Plugin *pluginInstance;
 
 struct RCKnobRed : RoundKnob {
   RCKnobRed() {
-    setSVG(APP->window->loadSvg(assetPlugin(plugin, "res/KnobRed.svg")));
+    setSVG(APP->window->loadSvg(assetPlugin(pluginInstance, "res/KnobRed.svg")));
   }
 };
 
@@ -21,7 +21,7 @@ struct RCKnobRedSnap : RCKnobRed {
 
 struct RCKnobRedLarge : RoundKnob {
   RCKnobRedLarge() {
-    setSVG(APP->window->loadSvg(assetPlugin(plugin, "res/KnobRedLarge.svg")));
+    setSVG(APP->window->loadSvg(assetPlugin(pluginInstance, "res/KnobRedLarge.svg")));
   }
 };
 
@@ -33,7 +33,7 @@ struct RCKnobRedLargeSnap : RCKnobRedLarge {
 
 struct RCKnobRedSmall : RoundKnob {
   RCKnobRedSmall() {
-    setSVG(APP->window->loadSvg(assetPlugin(plugin, "res/KnobRedSmall.svg")));
+    setSVG(APP->window->loadSvg(assetPlugin(pluginInstance, "res/KnobRedSmall.svg")));
   }
 };
 
